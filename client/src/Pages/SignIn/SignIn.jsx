@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { SignInUser } from '../services/Auth'
+import { SignInUser } from '../../Services/Auth'
 import { useNavigate } from 'react-router-dom'
+import './SignIn.css'
 
 const SignIn = ({ setUser }) => {
   let navigate = useNavigate()
@@ -20,12 +21,14 @@ const SignIn = ({ setUser }) => {
   }
 
   return (
-    <div className="signin col">
-      <div className="card-overlay centered">
-        <form className="col" onSubmit={handleSubmit}>
+    <div className="container">
+      <h2>Sign In</h2>
+      <div className="signIn-form">
+        <form id="SignIn" onSubmit={handleSubmit}>
           <div className="input-wrapper-email">
             <label htmlFor="email">Email</label>
             <input
+              id="email"
               onChange={handleChange}
               name="email"
               type="email"
@@ -37,6 +40,7 @@ const SignIn = ({ setUser }) => {
           <div className="input-wrapper-password">
             <label htmlFor="password">Password</label>
             <input
+              id="password"
               onChange={handleChange}
               type="password"
               name="password"

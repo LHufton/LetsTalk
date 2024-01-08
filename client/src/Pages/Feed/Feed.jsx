@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GetPosts } from '../services/PostServices'
+import { GetPosts } from '../../services/PostServices'
 import { useNavigate } from 'react-router-dom'
 
 const Feed = ({ user }) => {
