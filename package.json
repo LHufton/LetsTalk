@@ -1,0 +1,11 @@
+{
+  "name": "letstalk",
+  "version": "1.0.0",
+  "description": "MERN social media clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Luke Hufton",
+  "license": "ISC"
+}

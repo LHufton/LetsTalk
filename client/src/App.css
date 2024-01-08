@@ -1,0 +1,265 @@
+
+* {
+  font-family: 'Orbitron', sans-serif;
+  
+}
+
+body {
+  background-color: black;
+  margin: 0
+}
+
+#root {
+  /* max-width: 100vw; */
+  /* max-height: 100vw; */
+  /* margin: 0 auto; */
+  padding: 1rem;
+  /* text-align: center; */
+  --default-bg-color: black;
+}
+
+/* Nav.jsx */
+.user-nav-links {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  max-width: 100%;
+}
+
+.public-nav-links {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  max-width: 100%;
+}
+
+
+
+
+header {
+  background-color: #ee9149;
+  padding: 1px;
+  max-width: 100%;
+}
+
+nav {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+
+/* Styles for light mode */
+.App.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Styles for dark mode */
+.App.dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.darkButton {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2px;
+  border: 1px solid white;
+  padding: 5px;
+
+
+}
+/* home.jsx */
+.HomeContainer{
+  justify-content: center;
+  border: solid orange 1px;
+  display: flex;
+  max-width: 100vw;
+  max-height: 100vh;
+  padding: 5px;
+  margin: 10px
+}
+
+.homeH1, .homeH2 {
+  display: flex;
+  padding: 2px;
+  border: solid orange 5px;
+}
+
+
+/* comments.jsx */
+.commentDisplay {
+  display: flex;
+  align-content: center;
+  margin: 0 auto;
+  border: solid white 10px;
+
+}
+
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  border: solid white 1px;
+  background-color: black;
+}
+
+.inputTextbox {
+  border: 10px;
+  padding: '5px';
+  margin: '10px';
+  width: 2000
+}
+
+
+.post-card {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid orange;
+  max-width: 75vw;
+}
+
+.h1 {
+font-size: 10px
+}
+
+.new-post-card {
+  text-align: center;
+  border: 1px solid orange;
+  margin: '10px';
+  width: 2000;
+
+}
+
+.post-text-input {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+
+}
+
+.comment-submit-button {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2px;
+  border: 1px solid white;
+  padding: 5px;
+}
+.post-content-form {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid orange;
+  max-width: 100vw;
+  flex-grow: 1;
+}
+
+.post-form-button {
+  border: 1px solid orange;
+  color: white;
+  background-color: orange;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-post-button {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  border: 1px solid white;
+  padding: 5px;
+}
+
+.update-post-button{
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2px;
+  border: 1px solid white;
+  padding: 5px;
+}
+
+
+.delete-comment-button {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid white;
+  padding: 5px;
+  
+  
+}
+
+.delete-post-button {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: 0;
+  border: 1px solid white;
+  padding: 5px;
+  
+  
+}
+
+.edit-comment-text {
+  margin: 0 auto;
+}
+.edit-text-button {
+  background-color: #000000;
+  color: orange;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2px;
+  border: 1px solid white;
+  padding: 5px;
+  
+}
+.comment-card .h1{
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  flex-grow: 1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid orange;
+  max-width: 85vw;
+  max-height: 80vh;
+}
+
+.new-comment-card {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid orange;
+  max-width: 100vw;
+  flex-grow: 1;
+}
+
+
+
+.comment-text {
+  margin: 0 auto;
+}
