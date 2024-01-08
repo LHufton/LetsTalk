@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "node --watch server.js"
+    "start": "node server.js",
+    "dev": "concurrently \"npm run dev --prefix client\" \"node server.js\""
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -18,6 +19,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "concurrently": "^8.2.2",
     "vite": "^4.4.0"
   },
   "main": "vite.config.js",
