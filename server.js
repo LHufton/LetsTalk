@@ -19,6 +19,9 @@ app.use(logger('tiny'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'client/dist')))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist/index.html'))
+})
 
 app.use('/auth', AuthRouter)
 app.use('/comments', CommentRouter)
@@ -31,8 +34,4 @@ app.use('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Running Express server on Port ${PORT} . . .`)
-})
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist/index.html'))
 })
