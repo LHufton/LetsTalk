@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import React from 'react'
+import React, { useState } from 'react'
 const Home = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  // const handleAuthClick = () => {
-  //   setIsLoggedIn(!isLoggedIn)
-  // }
+  const handleAuthClick = () => {
+    setIsLoggedIn(!isLoggedIn)
+  }
   let navigate = useNavigate()
 
   return (

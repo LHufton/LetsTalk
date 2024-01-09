@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node server.js",
-    "dev": "concurrently \"npm run dev --prefix client\" \"node server.js\""
+    "build": "cd client && npm install && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
