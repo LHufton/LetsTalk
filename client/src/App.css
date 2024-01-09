@@ -1,7 +1,93 @@
+*,
+[class*="auto-grid"] > * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.auto-grid-5,
+.auto-grid-small,
+.auto-grid,
+.auto-grid-medium,
+.auto-grid-6,
+.auto-grid-large,
+.auto-grid-7 {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: var(--space-3);
+}
 
-* {
-  font-family: 'Orbitron', sans-serif;
-  
+.auto-grid-5,
+.auto-grid-small {
+  grid-template-columns: repeat(auto-fill, minmax(var(--space-5), 1fr));
+  grid-gap: var(--space-2);
+}
+
+.auto-grid,
+.auto-grid-6,
+.auto-grid-medium {
+  grid-template-columns: repeat(auto-fill, minmax(var(--space-6), 1fr));
+}
+
+.auto-grid-7,
+.auto-grid-large {
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 786px){
+.auto-grid-7,
+.auto-grid-large {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--space-3);
+}
+}
+
+root {
+  --root-size: 56.25%; /* equal to 9px = 1em = 1rem */
+  font-size: var(--root-size);
+
+  /* spacing units */
+  --spacing-scale-ratio: 2; /* 2:1 ratio | multiply to scale up (2 * --spacing-scale-ratio) | divide to scale down (n / --spacing-scale-ratio)*/
+  --space-0: 0.5rem; /* equal to --root-size / --spacing-scale-ratio */
+  --space-1: calc(var(--space-0) * var(--spacing-scale-ratio)); /* 9px */
+  --space-2: calc(var(--space-1) * var(--spacing-scale-ratio)); /* 18px */
+  --space-3: calc(var(--space-2) * var(--spacing-scale-ratio)); /* 36px */
+  --space-4: calc(var(--space-3) * var(--spacing-scale-ratio)); /* 72px */
+  --space-5: calc(var(--space-4) * var(--spacing-scale-ratio)); /* 144px */
+  --space-6: calc(var(--space-5) * var(--spacing-scale-ratio)); /* 288px */
+  --space-7: calc(var(--space-6) * var(--spacing-scale-ratio)); /* 576px */
+  --space-8: calc(var(--space-7) * var(--spacing-scale-ratio)); /* 1152px */
+  --space-9: calc(var(--space-8) * var(--spacing-scale-ratio)); /* 2304px */
+
+  /*typography*/
+
+  /* font scaling */
+  --font-scale-ratio: calc(4 / 3); /* 4:3 perfect fourth ratio */
+
+  --font-size-h6: calc(var(--space-1) * var(--font-scale-ratio)); /* 12px | 1.3333rem */
+  --font-size-h5: calc(var(--font-size-h6) * var(--font-scale-ratio)); /* 16px  |  1.7778rem */
+  --font-size-h4: calc(var(--font-size-h5) * var(--font-scale-ratio)); /* 21.3333px 2.3704rem */
+  --font-size-h3: calc(var(--font-size-h4) * var(--font-scale-ratio)); /* 28.4444px | 3.1605rem */
+  --font-size-h2: calc(var(--font-size-h3) * var(--font-scale-ratio)); /* 37.9259px | 4.214rem */
+  --font-size-h1: calc(var(--font-size-h2) * var(--font-scale-ratio)); /* 50.5679px 5.6187rem */
+
+  --font-size-small: var(--font-size-h6);
+  --font-size-p: var(--font-size-h5);
+  --font-size-label: var(--font-size-h6);
+  --font-size-button: var(--font-size-default);
+
+
+  --font-size-default: var(--font-size-p);
+
+  --line-height-default: 2;
+  --line-height-header: calc(0.79 * 5 / 3);
+  --line-height-p: var(--line-height-default);
+  --line-height-small: 2;
+  --line-height-label: var(--font-size-h6);
+
+  --font-family-default:  sans-serif;
+  font-family: var(--font-family-default);
+  line-height: var(--line-height-default);
 }
 
 body {
@@ -70,7 +156,8 @@ nav {
   background-color: #000000;
   color: orange;
   display: flex;
-  justify-content: flex-start;
+  align-items: flex-end;
+  justify-content: flex-end;  
   margin: 2px;
   border: 1px solid white;
   padding: 5px;
