@@ -8,7 +8,7 @@ const CommentRouter = require('./routes/CommentRouter')
 const PostRouter = require('./routes/PostRouter')
 const FeedRouter = require('./routes/FeedRouter')
 
-const PORT = process.env.PORT || 2255
+const PORT = process.env.PORT || 3001
 
 const db = require('./db')
 
