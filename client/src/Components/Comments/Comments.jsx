@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
-import axios from 'axios'
 
 const Comment = (props) => {
   const [formValues, setFormValues] = useState({ content: '', author: '' })
@@ -9,6 +8,7 @@ const Comment = (props) => {
   const [editCommentContent, setEditCommentContent] = useState('')
   const [toggleCommentContent, setToggleCommentContent] = useState(false)
 
+  let data = Array.from(props.data)
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newComment = {
@@ -39,13 +39,15 @@ const Comment = (props) => {
       ...comments.find((comment) => comment._id === id),
       content: editCommentContent
     }
-    let response = await Client.put(`/comments/${id}`, updatedComment)
+    await Client.put(`/comments/${id}`, updatedComment)
     setComments(
-      comments.map((comment) => (comment._id === id ? updatedComment : comment))
+      comments?.map((comment) =>
+        comment._id === id ? updatedComment : comment
+      )
     )
     setEditingComment(null)
     setEditCommentContent('')
-    setToggleCommentContent((prevToggle) => (prevToggle = !prevToggle))
+    setToggleCommentContent((prevToggle) => !prevToggle)
   }
 
   const handleDeleteComment = async (id) => {
@@ -55,8 +57,12 @@ const Comment = (props) => {
 
   useEffect(() => {
     const getComments = async () => {
-      let response = await axios.get(`${Client.defaults.baseURL}/comments`)
-      setComments(response.data)
+      try {
+        let response = await Client.get('/comments')
+        setComments(response.data)
+      } catch (error) {
+        console.error('Error fetching comments:', error)
+      }
     }
     getComments()
   }, [toggleCommentContent])
@@ -74,13 +80,13 @@ const Comment = (props) => {
             onChange={handleChange}
             value={formValues.content}
           />
-          <button className="comment-submit-button-" type="submit">
+          <button className="comment-submit-button" type="submit">
             Submit
           </button>
         </form>
       </div>
       <section className="new-comment-card">
-        {comments?.map((comment) => (
+        {comments.map((comment) => (
           <div key={comment._id}>
             <h4>{comment.content}</h4>
             <button
