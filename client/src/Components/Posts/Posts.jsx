@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
-import axios from 'axios'
 
 const Post = (props) => {
   const [formValues, setFormValues] = useState({ content: '', author: '' })
   const [posts, setPosts] = useState([])
   const [editingPost, setEditingPost] = useState(null)
   const [editPostContent, setEditPostContent] = useState('')
-  const [togglePostContent, setTogglePostContent] = useState(false)
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newPost = {
       content: formValues.content,
       author: props.user.id
     }
-    let response = await Client.post('/posts', newPost)
-    setPosts([...posts, response.data])
-    setFormValues({ content: '' })
+
+    console.log('Creating new post:', newPost) // Debugging line
+
+    try {
+      let response = await Client.post('/posts', newPost)
+      setPosts([...posts, response.data])
+      setFormValues({ content: '' })
+    } catch (error) {
+      console.error('Error creating post:', error)
+    }
   }
 
   const handleChange = (e) => {
@@ -40,24 +44,40 @@ const Post = (props) => {
       content: editPostContent
     }
 
-    let response = await Client.put(`/posts/${id}`, updatedPost)
-    setEditingPost(null)
-    setEditPostContent('')
-    setTogglePostContent((prevToggle) => (prevToggle = !prevToggle))
+    try {
+      await Client.put(`/posts/${id}`, updatedPost)
+      setPosts(posts.map((post) => (post._id === id ? updatedPost : post)))
+      setEditingPost(null)
+      setEditPostContent('')
+    } catch (error) {
+      console.error('Error updating post:', error)
+    }
   }
 
   const handleDeletePost = async (id) => {
-    await Client.delete(`/posts/${id}`)
-    setPosts(posts.filter((post) => post._id !== id))
+    try {
+      await Client.delete(`/posts/${id}`)
+      setPosts(posts.filter((post) => post._id !== id))
+    } catch (error) {
+      console.error('Error deleting post:', error)
+    }
   }
 
   useEffect(() => {
     const getPosts = async () => {
-      let response = await axios.get(`${Client.defaults.baseURL}/posts`)
-      setPosts(response.data)
+      try {
+        let response = await Client.get('/posts')
+        if (Array.isArray(response.data)) {
+          setPosts(response.data)
+        } else {
+          console.error('Response data is not an array:', response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error)
+      }
     }
     getPosts()
-  }, [togglePostContent])
+  }, [])
 
   return (
     <div>
@@ -78,38 +98,40 @@ const Post = (props) => {
         </form>
       </div>
       <section className="new-post-card">
-        {posts?.map((post) => (
-          <div key={post._id}>
-            <h4>{post.content}</h4>
-            <button
-              className="delete-post-button"
-              onClick={() => handleDeletePost(post._id)}
-            >
-              Delete
-            </button>
-            <button
-              className="edit-post-button"
-              onClick={() => handleEdit(post._id)}
-            >
-              Edit
-            </button>
-            {editingPost === post._id && (
-              <div>
-                <textarea
-                  placeholder="Edit text"
-                  onChange={handleChangeEdit}
-                  value={editPostContent}
-                />
-                <button
-                  className="update-post-button"
-                  onClick={() => handleUpdatePost(post._id)}
-                >
-                  Update
-                </button>
-              </div>
-            )}
-          </div>
-        ))}
+        {Array.isArray(posts) &&
+          posts.map((post) => (
+            <div key={post._id}>
+              <h4>{post.content}</h4>
+              <button
+                className="delete-post-button"
+                onClick={() => handleDeletePost(post._id)}
+              >
+                Delete
+              </button>
+              <button
+                className="edit-post-button"
+                onClick={() => handleEdit(post._id)}
+              >
+                Edit
+              </button>
+              {editingPost === post._id && (
+                <div>
+                  <textarea
+                    className="edit-post-text"
+                    placeholder="Edit text"
+                    onChange={handleChangeEdit}
+                    value={editPostContent}
+                  />
+                  <button
+                    className="update-post-button"
+                    onClick={() => handleUpdatePost(post._id)}
+                  >
+                    Update
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
       </section>
     </div>
   )
