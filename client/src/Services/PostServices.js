@@ -1,36 +1,41 @@
 import Client from './api'
 
 export const GetPosts = async () => {
-  try {
-    const res = await Client.get('/posts')
-    return res.data
-  } catch (error) {
-    throw error
-  }
+  const token = localStorage.getItem('token')
+  const res = await Client.get('/posts', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  return res.data
 }
 
-export const CreatePosts = async () => {
-  try {
-    const res = await Client.post('/posts')
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
+// export const CreatePosts = async (postData) => {
+//   const token = localStorage.getItem('token')
+//   const res = await Client.post('/posts', postData, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   })
+//   return res.data
+// }
 
-export const UpdatePosts = async () => {
-  try {
-    const res = await Client.put('/posts')
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
-export const DeletePosts = async () => {
-  try {
-    const res = await Client.delete('/posts')
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
+// export const UpdatePosts = async (postId, postData) => {
+//   const token = localStorage.getItem('token')
+//   const res = await Client.put(`/posts/${postId}`, postData, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   })
+//   return res.data
+// }
+
+// export const DeletePosts = async (postId) => {
+//   const token = localStorage.getItem('token')
+//   const res = await Client.delete(`/posts/${postId}`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   })
+//   return res.data
+// }
