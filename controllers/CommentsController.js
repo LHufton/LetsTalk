@@ -1,11 +1,13 @@
-const Comment = require('../models/Comment')
+const { Comment } = require('../models')
 
 const GetComments = async (req, res) => {
   try {
     const comments = await Comment.find({})
+    console.log('Fetched Comments: ', comments)
     res.send(comments)
   } catch (error) {
-    throw error
+    console.error('Error in GetComments: ', error)
+    res.status(500).send({ error: error.message })
   }
 }
 
@@ -14,7 +16,8 @@ const CreateComment = async (req, res) => {
     const comment = await Comment.create({ ...req.body })
     res.send(comment)
   } catch (error) {
-    throw error
+    console.error('Error in CreateComment: ', error)
+    res.status(500).send({ error: error.message })
   }
 }
 
@@ -23,13 +26,12 @@ const UpdateComment = async (req, res) => {
     const comment = await Comment.findByIdAndUpdate(
       req.params.comment_id,
       req.body,
-      {
-        new: true
-      }
+      { new: true }
     )
     res.send(comment)
   } catch (error) {
-    throw error
+    console.error('Error in UpdateComment: ', error)
+    res.status(500).send({ error: error.message })
   }
 }
 
@@ -42,7 +44,8 @@ const DeleteComment = async (req, res) => {
       status: 'Ok'
     })
   } catch (error) {
-    throw error
+    console.error('Error in DeleteComment: ', error)
+    res.status(500).send({ error: error.message })
   }
 }
 

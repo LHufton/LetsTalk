@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const feedSchema = new Schema(
+const FeedSchema = new Schema(
   {
     content: { type: String, required: true },
     type: { type: String, enum: ['post', 'comment'], required: true },
@@ -14,4 +14,4 @@ const feedSchema = new Schema(
 
 // const Feed = model('Feed', feedSchema)
 
-module.exports = feedSchema
+module.exports = FeedSchema
