@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
-const userSchema = require('./User')
-const postSchema = require('./Post')
-const commentSchema = require('./Comment')
-const feedSchema = require('./Feed')
+const UserSchema = require('./User')
+const PostSchema = require('./Post')
+const CommentSchema = require('./Comment')
+const FeedSchema = require('./Feed')
 
-const User = mongoose.model('User', userSchema)
-const Post = mongoose.model('Post', postSchema)
-const Comment = mongoose.model('Comment', commentSchema)
-const Feed = mongoose.model('Feed', feedSchema)
+const User = mongoose.model('User', UserSchema)
+const Post = mongoose.model('Post', PostSchema)
+const Comment = mongoose.model('Comment', CommentSchema)
+const Feed = mongoose.model('Feed', FeedSchema)
 
 module.exports = {
   User,
