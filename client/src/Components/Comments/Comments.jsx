@@ -15,6 +15,7 @@ const Comment = (props) => {
     }
 
     try {
+      console.log('Author ID', props.user.id)
       const response = await Client.post('/comments', newComment)
       setComments([...comments, response.data])
       setFormValues({ content: '' })

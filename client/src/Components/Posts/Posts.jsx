@@ -16,6 +16,7 @@ const Post = (props) => {
     console.log('Creating new post:', newPost) // Debugging line
 
     try {
+      console.log('Author ID', props.user.id)
       let response = await Client.post('/posts', newPost)
       setPosts([...posts, response.data])
       setFormValues({ content: '' })
