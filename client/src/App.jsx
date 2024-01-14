@@ -30,37 +30,34 @@ const App = () => {
     setUser(user)
   }
 
-  const [themeMode, setThemeMode] = useState('light')
+  // const [themeMode, setThemeMode] = useState('light')
 
-  const toggleTheme = () => {
-    setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-  }
+  // const toggleTheme = () => {
+  //   setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+  // }
 
-  useEffect(() => {
-    const root = document.documentElement
-    root.classList.remove('light', 'dark')
-    root.classList.add(themeMode)
-  }, [themeMode])
+  // useEffect(() => {
+  //   const root = document.documentElement
+  //   root.classList.remove('light', 'dark')
+  //   root.classList.add(themeMode)
+  // }, [themeMode])
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem('theme')
-    if (storedTheme) {
-      setThemeMode(storedTheme)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const storedTheme = localStorage.getItem('theme')
+  //   if (storedTheme) {
+  //     setThemeMode(storedTheme)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    localStorage.setItem('theme', themeMode)
-  }, [themeMode])
+  // useEffect(() => {
+  //   localStorage.setItem('theme', themeMode)
+  // }, [themeMode])
 
   return (
-    <div className={`App ${themeMode}`}>
+    <div>
       <header></header>
       <Nav user={user} handleLogOut={handleLogOut} />
       <main>
-        <button className="darkButton" onClick={toggleTheme}>
-          Light/Dark Mode
-        </button>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
