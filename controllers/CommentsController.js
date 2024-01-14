@@ -2,7 +2,7 @@ const { Comment } = require('../models')
 
 const GetComments = async (req, res) => {
   try {
-    const comments = await Comment.find({})
+    const comments = await Comment.find({ ...req.query })
     console.log('Fetched Comments: ', comments)
     res.send(comments)
   } catch (error) {

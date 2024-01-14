@@ -2,24 +2,28 @@ import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
 
 const Post = (props) => {
-  const [formValues, setFormValues] = useState({ content: '', author: '' })
+  const [formValues, setFormValues] = useState({
+    content: '',
+    author: props.user.id
+  })
   const [posts, setPosts] = useState([])
   const [editingPost, setEditingPost] = useState(null)
   const [editPostContent, setEditPostContent] = useState('')
+
+  useEffect(() => {
+    setFormValues((fv) => ({ ...fv, author: props.user.id }))
+  }, [props.user.id])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newPost = {
       content: formValues.content,
-      author: props.user.id
+      author: formValues.author
     }
-
-    console.log('Creating new post:', newPost) // Debugging line
-
     try {
-      console.log('Author ID', props.user.id)
       let response = await Client.post('/posts', newPost)
       setPosts([...posts, response.data])
-      setFormValues({ content: '' })
+      setFormValues({ content: '', author: props.user.id })
     } catch (error) {
       console.error('Error creating post:', error)
     }
@@ -41,13 +45,11 @@ const Post = (props) => {
 
   const handleUpdatePost = async (id) => {
     const updatedPost = {
-      ...posts.find((post) => post._id === id),
       content: editPostContent
     }
-
     try {
-      await Client.put(`/posts/${id}`, updatedPost)
-      setPosts(posts.map((post) => (post._id === id ? updatedPost : post)))
+      let response = await Client.put(`/posts/${id}`, updatedPost)
+      setPosts(posts.map((post) => (post._id === id ? response.data : post)))
       setEditingPost(null)
       setEditPostContent('')
     } catch (error) {

@@ -2,16 +2,29 @@ import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
 
 const Comment = (props) => {
-  const [formValues, setFormValues] = useState({ content: '', author: '' })
+  console.log('User props:', props.user)
+  const [formValues, setFormValues] = useState({
+    content: '',
+    author: ''
+  })
   const [comments, setComments] = useState([])
   const [editingComment, setEditingComment] = useState(null)
   const [editCommentContent, setEditCommentContent] = useState('')
+
+  useEffect(() => {
+    if (props.user && props.user.id) {
+      setFormValues((fv) => ({ ...fv, author: props.user.id }))
+    }
+  }, [props.user])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newComment = {
       content: formValues.content,
-      author: props.user.id
+      author: formValues.author
+    }
+    if (!newComment.author) {
+      return
     }
 
     try {
