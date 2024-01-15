@@ -1,4 +1,4 @@
-const { Feed } = require('../models')
+const Feed = require('../models/Feed/Feed')
 
 // Controller action to get the feed
 const getFeed = async (req, res) => {
