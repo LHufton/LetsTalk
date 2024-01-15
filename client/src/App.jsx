@@ -30,29 +30,6 @@ const App = () => {
     setUser(user)
   }
 
-  // const [themeMode, setThemeMode] = useState('light')
-
-  // const toggleTheme = () => {
-  //   setThemeMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-  // }
-
-  // useEffect(() => {
-  //   const root = document.documentElement
-  //   root.classList.remove('light', 'dark')
-  //   root.classList.add(themeMode)
-  // }, [themeMode])
-
-  // useEffect(() => {
-  //   const storedTheme = localStorage.getItem('theme')
-  //   if (storedTheme) {
-  //     setThemeMode(storedTheme)
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   localStorage.setItem('theme', themeMode)
-  // }, [themeMode])
-
   return (
     <div>
       <header></header>
