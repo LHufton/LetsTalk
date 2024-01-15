@@ -10,5 +10,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 )
 
-// Exporting the schema, not the model
 module.exports = UserSchema
