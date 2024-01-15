@@ -278,7 +278,7 @@ font-size: 10px
 
 .update-post-button{
   background-color: #000000;
-  color: white
+  color: white;
   display: flex;
   justify-content: flex-start;
   margin: 2px;
