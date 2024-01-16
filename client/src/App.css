@@ -119,6 +119,7 @@ body {
 
 .public-nav-links {
   display: flex;
+  color: white;
   justify-content: space-between;
   list-style: none;
   padding: 0;
