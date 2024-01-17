@@ -12,6 +12,7 @@ import './App.css'
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -35,9 +36,6 @@ const App = () => {
       <header></header>
       <Nav user={user} handleLogOut={handleLogOut} />
       <main>
-        {/* <button className="darkButton" onClick={toggleTheme}>
-          Light/Dark Mode
-        </button> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signIn" element={<SignIn setUser={setUser} />} />
