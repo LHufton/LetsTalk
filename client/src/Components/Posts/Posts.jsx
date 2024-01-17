@@ -16,10 +16,7 @@ const Post = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const newPost = {
-      content: formValues.content,
-      author: formValues.author
-    }
+    const newPost = { content: formValues.content, author: formValues.author }
     try {
       let response = await Client.post('/posts', newPost)
       setPosts([...posts, response.data])
@@ -44,9 +41,7 @@ const Post = (props) => {
   }
 
   const handleUpdatePost = async (id) => {
-    const updatedPost = {
-      content: editPostContent
-    }
+    const updatedPost = { content: editPostContent }
     try {
       let response = await Client.put(`/posts/${id}`, updatedPost)
       setPosts(posts.map((post) => (post._id === id ? response.data : post)))
@@ -101,40 +96,43 @@ const Post = (props) => {
         </form>
       </div>
       <section className="new-post-card">
-        {Array.isArray(posts) &&
-          posts.map((post) => (
-            <div key={post._id}>
-              <h4>{post.content}</h4>
-              <button
-                className="delete-post-button"
-                onClick={() => handleDeletePost(post._id)}
-              >
-                Delete
-              </button>
-              <button
-                className="edit-post-button"
-                onClick={() => handleEdit(post._id)}
-              >
-                Edit
-              </button>
-              {editingPost === post._id && (
-                <div>
-                  <textarea
-                    className="edit-post-text"
-                    placeholder="Edit text"
-                    onChange={handleChangeEdit}
-                    value={editPostContent}
-                  />
-                  <button
-                    className="update-post-button"
-                    onClick={() => handleUpdatePost(post._id)}
-                  >
-                    Update
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
+        {posts.map((post) => (
+          <div key={post._id}>
+            <h4>{post.content}</h4>
+            {props.user && props.user.id === post.author && (
+              <>
+                <button
+                  className="delete-post-button"
+                  onClick={() => handleDeletePost(post._id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="edit-post-button"
+                  onClick={() => handleEdit(post._id)}
+                >
+                  Edit
+                </button>
+                {editingPost === post._id && (
+                  <div>
+                    <textarea
+                      className="edit-post-text"
+                      placeholder="Edit text"
+                      onChange={handleChangeEdit}
+                      value={editPostContent}
+                    />
+                    <button
+                      className="update-post-button"
+                      onClick={() => handleUpdatePost(post._id)}
+                    >
+                      Update
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        ))}
       </section>
     </div>
   )

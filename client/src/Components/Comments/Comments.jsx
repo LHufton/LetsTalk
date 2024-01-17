@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
 
 const Comment = (props) => {
-  console.log('User props:', props.user)
-  const [formValues, setFormValues] = useState({
-    content: '',
-    author: ''
-  })
+  const [formValues, setFormValues] = useState({ content: '', author: '' })
   const [comments, setComments] = useState([])
   const [editingComment, setEditingComment] = useState(null)
   const [editCommentContent, setEditCommentContent] = useState('')
@@ -28,7 +24,6 @@ const Comment = (props) => {
     }
 
     try {
-      console.log('Author ID', props.user.id)
       const response = await Client.post('/comments', newComment)
       setComments([...comments, response.data])
       setFormValues({ content: '' })
@@ -115,37 +110,40 @@ const Comment = (props) => {
         </form>
       </div>
       <section className="new-comment-card">
-        {Array.isArray(comments) &&
-          comments.map((comment) => (
-            <div key={comment._id}>
-              <h4>{comment.content}</h4>
-              <button
-                className="delete-comment-button"
-                onClick={() => handleDeleteComment(comment._id)}
-              >
-                Delete
-              </button>
-              <button
-                className="edit-text-button"
-                onClick={() => handleEdit(comment._id)}
-              >
-                Edit
-              </button>
-              {editingComment === comment._id && (
-                <div>
-                  <textarea
-                    className="edit-comment-text"
-                    placeholder="Edit text"
-                    onChange={handleChangeEdit}
-                    value={editCommentContent}
-                  />
-                  <button onClick={() => handleUpdateComment(comment._id)}>
-                    Update
-                  </button>
-                </div>
-              )}
-            </div>
-          ))}
+        {comments.map((comment) => (
+          <div key={comment._id}>
+            <h4>{comment.content}</h4>
+            {props.user && props.user.id === comment.author && (
+              <>
+                <button
+                  className="delete-comment-button"
+                  onClick={() => handleDeleteComment(comment._id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className="edit-text-button"
+                  onClick={() => handleEdit(comment._id)}
+                >
+                  Edit
+                </button>
+                {editingComment === comment._id && (
+                  <div>
+                    <textarea
+                      className="edit-comment-text"
+                      placeholder="Edit text"
+                      onChange={handleChangeEdit}
+                      value={editCommentContent}
+                    />
+                    <button onClick={() => handleUpdateComment(comment._id)}>
+                      Update
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        ))}
       </section>
     </div>
   )

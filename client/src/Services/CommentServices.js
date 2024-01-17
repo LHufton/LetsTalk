@@ -7,7 +7,10 @@ const getAuthHeaders = () => {
 }
 
 export const GetComments = async () => {
-  const res = await Client.get('/comments', { headers: getAuthHeaders() })
+  const res = await Client.get('/comments', {
+    headers: getAuthHeaders(),
+    user_id: localStorage.getItem('user_id')
+  })
   return res.data
 }
 
