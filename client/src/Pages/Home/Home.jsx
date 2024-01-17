@@ -10,8 +10,8 @@ const Home = () => {
 
   return (
     <div className="HomeContainer">
-      <h1 className="homeH1"> Welcome home!</h1>
-      <h2 className="homeh2"> What's on your mind?</h2>
+      <h1 className="homeH2"> Welcome home!</h1>
+      <h2 className="homeh3"> What's on your mind?</h2>
       <section className="welcome-signin">
         <button onClick={() => navigate('signin')}>Sign In</button>
       </section>

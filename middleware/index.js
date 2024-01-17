@@ -6,36 +6,31 @@ const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
 const APP_SECRET = process.env.APP_SECRET
 
 const hashPassword = async (password) => {
-  let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
-
-  return hashedPassword
+  return bcrypt.hash(password, SALT_ROUNDS)
 }
 
 const comparePassword = async (storedPassword, password) => {
-  let passwordMatch = await bcrypt.compare(password, storedPassword)
-
-  return passwordMatch
+  return bcrypt.compare(password, storedPassword)
 }
 
 const createToken = (payload) => {
-  let token = jwt.sign(payload, APP_SECRET)
-
-  return token
+  return jwt.sign(payload, APP_SECRET)
 }
 
 const stripToken = (req, res, next) => {
   try {
-    const token = req.headers['authorization'].split(' ')[1]
+    const authHeader = req.headers['authorization']
+    if (!authHeader) throw new Error('No authorization header')
 
-    if (token) {
-      res.locals.token = token
+    const token = authHeader.split(' ')[1]
+    if (!token) throw new Error('Bearer token not found')
 
-      return next()
-    }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    res.locals.token = token
+    next()
   } catch (error) {
-    console.log(error)
-    res.status(401).send({ status: 'Error', msg: 'Strip Token Error!' })
+    res
+      .status(401)
+      .send({ status: 'Error', msg: 'Unauthorized: ' + error.message })
   }
 }
 
@@ -43,15 +38,15 @@ const verifyToken = (req, res, next) => {
   const { token } = res.locals
 
   try {
-    let payload = jwt.verify(token, APP_SECRET)
-    if (payload) {
-      res.locals.payload = payload
-      return next()
-    }
-    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
+    const payload = jwt.verify(token, APP_SECRET)
+    if (!payload) throw new Error('Invalid token')
+
+    res.locals.payload = payload
+    next()
   } catch (error) {
-    console.log(error)
-    res.status(401).send({ status: 'Error', msg: 'Verify Token Error!' })
+    res
+      .status(401)
+      .send({ status: 'Error', msg: 'Verify Token Error: ' + error.message })
   }
 }
 
