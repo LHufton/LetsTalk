@@ -106,28 +106,7 @@ body {
   --default-bg-color: black;
 }
 
-/* Nav.jsx */
-.user-nav-links {
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 18px;
-  max-width: 100%;
-}
 
-.public-nav-links {
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 18px;
-  max-width: 100%;
-}
 
 
 
@@ -138,10 +117,6 @@ header {
   max-width: 100%;
 }
 
-nav {
-  max-width: 100%;
-  margin: 0 auto;
-}
 
 
 /* Styles for light mode */
