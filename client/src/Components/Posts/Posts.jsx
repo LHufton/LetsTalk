@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
+// import { Comment } from '../Comments/Comments'
 
 const Post = (props) => {
   const [formValues, setFormValues] = useState({
