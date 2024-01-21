@@ -24,7 +24,7 @@ const CreateComment = async (req, res) => {
 const UpdateComment = async (req, res) => {
   try {
     const comment = await Comment.findByIdAndUpdate(
-      req.params.comment_id,
+      req.params.commentId,
       req.body,
       { new: true }
     )
@@ -37,10 +37,10 @@ const UpdateComment = async (req, res) => {
 
 const DeleteComment = async (req, res) => {
   try {
-    await Comment.deleteOne({ _id: req.params.comment_id })
+    await Comment.deleteOne({ _id: req.params.commentId })
     res.send({
       msg: 'Comment Deleted',
-      payload: req.params.comment_id,
+      payload: req.params.commentId,
       status: 'Ok'
     })
   } catch (error) {

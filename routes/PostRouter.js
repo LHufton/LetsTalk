@@ -12,13 +12,13 @@ router.post(
   controller.CreatePost
 )
 router.put(
-  '/:post_id',
+  '/:postId',
   middleware.stripToken,
   middleware.verifyToken,
   controller.UpdatePost
 )
 router.delete(
-  '/:post_id',
+  '/:postId',
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeletePost
@@ -26,19 +26,19 @@ router.delete(
 
 // New routes for Comment operations within a Post
 router.post(
-  '/:post_id/comments',
+  '/:postId/comments',
   middleware.stripToken,
   middleware.verifyToken,
   controller.AddCommentToPost
 )
 router.put(
-  '/:post_id/comments/:comment_id',
+  '/:postId/comments/:commentId',
   middleware.stripToken,
   middleware.verifyToken,
-  controller.UpdatePostComment
+  controller.UpdateCommentInPost
 )
 router.delete(
-  '/:post_id/comments/:comment_id',
+  '/:postId/comments/:commentId',
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeleteCommentFromPost

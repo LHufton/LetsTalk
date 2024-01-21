@@ -60,8 +60,8 @@ const UpdateCommentInPost = async (req, res) => {
   const { postId, commentId } = req.params
 
   try {
-    const post = await Post.findById(post_id)
-    const comment = post.comments.id(comment_id)
+    const post = await Post.findById(postId)
+    const comment = post.comments.id(commentId)
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
     }
@@ -78,8 +78,8 @@ const DeleteCommentFromPost = async (req, res) => {
   const { postId, commentId } = req.params
 
   try {
-    const post = await Post.findById(post_id)
-    const comment = post.comments.id(comment_id)
+    const post = await Post.findById(postId)
+    const comment = post.comments.id(commentId)
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' })
     }
