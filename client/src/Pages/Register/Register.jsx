@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RegisterUser } from '../../Services/Auth'
+import './Register.css'
 
 const Register = () => {
   let navigate = useNavigate()

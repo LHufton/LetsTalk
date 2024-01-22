@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Client from '../../Services/api'
-// import { Comment } from '../Comments/Comments'
 
 const Post = (props) => {
   const [formValues, setFormValues] = useState({
@@ -19,7 +18,7 @@ const Post = (props) => {
     e.preventDefault()
     const newPost = { content: formValues.content, author: formValues.author }
     try {
-      let response = await Client.post('/posts', newPost)
+      const response = await Client.post('/posts', newPost)
       setPosts([...posts, response.data])
       setFormValues({ content: '', author: props.user.id })
     } catch (error) {
@@ -44,7 +43,7 @@ const Post = (props) => {
   const handleUpdatePost = async (id) => {
     const updatedPost = { content: editPostContent }
     try {
-      let response = await Client.put(`/posts/${id}`, updatedPost)
+      const response = await Client.put(`/posts/${id}`, updatedPost)
       setPosts(posts.map((post) => (post._id === id ? response.data : post)))
       setEditingPost(null)
       setEditPostContent('')
@@ -65,7 +64,7 @@ const Post = (props) => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        let response = await Client.get('/posts')
+        const response = await Client.get('/posts')
         if (Array.isArray(response.data)) {
           setPosts(response.data)
         } else {

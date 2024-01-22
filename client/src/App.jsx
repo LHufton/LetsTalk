@@ -5,7 +5,6 @@ import Nav from './Components/Nav/Nav'
 import Feed from './Pages/Feed/Feed'
 import Register from './Pages/Register/Register'
 import SignIn from './Pages/SignIn/SignIn'
-import Home from './Pages/Home/Home'
 import Comments from './Components/Comments/Comments'
 import Posts from './Components/Posts/Posts'
 import './App.css'
@@ -37,7 +36,6 @@ const App = () => {
       <Nav user={user} handleLogOut={handleLogOut} />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/signIn" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/comments" element={<Comments user={user} />} />
