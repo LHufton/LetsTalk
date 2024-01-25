@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import { CheckSession } from './Services/Auth'
 import Nav from './Components/Nav/Nav'
 import Feed from './Pages/Feed/Feed'
+import Home from './Pages/Home/Home'
 import Register from './Pages/Register/Register'
 import SignIn from './Pages/SignIn/SignIn'
 import Comments from './Components/Comments/Comments'
@@ -38,6 +39,7 @@ const App = () => {
         <Routes>
           <Route path="/signIn" element={<SignIn setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/comments" element={<Comments user={user} />} />
           <Route path="/feed" element={<Feed user={user} />} />
           <Route path="/posts" element={<Posts user={user} />} />

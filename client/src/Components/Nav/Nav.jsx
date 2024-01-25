@@ -20,7 +20,7 @@ const Nav = ({ user, handleLogOut }) => {
 
   const publicOptions = (
     <nav className="public-nav-links">
-      <Link to="/">Home</Link>
+      <Link to="/home">Home</Link>
       <Link to="/register">Register</Link>
       <Link to="/signin">Sign In</Link>
     </nav>
