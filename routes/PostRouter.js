@@ -4,7 +4,7 @@ const middleware = require('../middleware')
 
 router.get('/', controller.GetPosts)
 router.post(
-  '/',
+  '/post',
   middleware.stripToken,
   middleware.verifyToken,
   controller.CreatePost

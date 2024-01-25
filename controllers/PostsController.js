@@ -1,8 +1,7 @@
 const Post = require('../models/Post/Post')
-
 const GetPosts = async (req, res) => {
   try {
-    const posts = await Post.find({})
+    const posts = await Post.find({}).populate('comments')
     return res.status(200).json(posts)
   } catch (error) {
     return res.status(500).json({ error: error.message })
@@ -11,7 +10,8 @@ const GetPosts = async (req, res) => {
 
 const CreatePost = async (req, res) => {
   try {
-    const post = await Post.create({ ...req.body })
+    const newPost = { ...req.body, comments: [] }
+    const post = await Post.create(newPost)
     return res.status(201).json(post)
   } catch (error) {
     return res.status(400).json({ error: error.message })
@@ -40,9 +40,41 @@ const DeletePost = async (req, res) => {
   }
 }
 
+const AddCommentToPost = async (req, res) => {
+  try {
+    const { post_id, comment_id } = req.params // Assume comment_id is passed
+    // Validate IDs if necessary
+    const post = await Post.findByIdAndUpdate(
+      post_id,
+      { $push: { comments: comment_id } },
+      { new: true }
+    ).populate('comments')
+    return res.status(200).json(post)
+  } catch (error) {
+    return res.status(400).json({ error: error.message })
+  }
+}
+
+const RemoveCommentFromPost = async (req, res) => {
+  try {
+    const { post_id, comment_id } = req.params
+    // Validate IDs if necessary
+    const post = await Post.findByIdAndUpdate(
+      post_id,
+      { $pull: { comments: comment_id } },
+      { new: true }
+    ).populate('comments')
+    return res.status(200).json(post)
+  } catch (error) {
+    return res.status(400).json({ error: error.message })
+  }
+}
+
 module.exports = {
   GetPosts,
   CreatePost,
   UpdatePost,
-  DeletePost
+  DeletePost,
+  AddCommentToPost,
+  RemoveCommentFromPost
 }
