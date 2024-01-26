@@ -1,6 +1,9 @@
 const Post = require('../models/Post/Post')
+
 const GetPosts = async (req, res) => {
   try {
+    // experimental. Can't read posts on transition from comments attached to post. 01-25-2024
+    const { user_id } = req.params
     const posts = await Post.find({}).populate('comments')
     return res.status(200).json(posts)
   } catch (error) {
@@ -21,7 +24,6 @@ const CreatePost = async (req, res) => {
 const UpdatePost = async (req, res) => {
   try {
     const { post_id } = req.params
-    // Validate post_id here if necessary
     const post = await Post.findByIdAndUpdate(post_id, req.body, { new: true })
     return res.status(200).json(post)
   } catch (error) {
@@ -32,7 +34,6 @@ const UpdatePost = async (req, res) => {
 const DeletePost = async (req, res) => {
   try {
     const { post_id } = req.params
-    // Validate post_id here if necessary
     await Post.deleteOne({ _id: post_id })
     return res.status(200).json({ msg: 'Post Deleted', payload: post_id })
   } catch (error) {
@@ -42,8 +43,8 @@ const DeletePost = async (req, res) => {
 
 const AddCommentToPost = async (req, res) => {
   try {
-    const { post_id, comment_id } = req.params // Assume comment_id is passed
-    // Validate IDs if necessary
+    const { post_id } = req.params
+    const { comment_id } = req.body // Assuming comment_id is passed in the request body
     const post = await Post.findByIdAndUpdate(
       post_id,
       { $push: { comments: comment_id } },
@@ -58,7 +59,6 @@ const AddCommentToPost = async (req, res) => {
 const RemoveCommentFromPost = async (req, res) => {
   try {
     const { post_id, comment_id } = req.params
-    // Validate IDs if necessary
     const post = await Post.findByIdAndUpdate(
       post_id,
       { $pull: { comments: comment_id } },

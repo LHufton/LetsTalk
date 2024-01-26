@@ -4,7 +4,7 @@ const middleware = require('../middleware')
 
 router.get('/', controller.GetPosts)
 router.post(
-  '/post',
+  '/',
   middleware.stripToken,
   middleware.verifyToken,
   controller.CreatePost
@@ -20,6 +20,18 @@ router.delete(
   middleware.stripToken,
   middleware.verifyToken,
   controller.DeletePost
+)
+router.post(
+  '/:post_id/comments',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.AddCommentToPost
+)
+router.delete(
+  '/:post_id/comments/:comment_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.RemoveCommentFromPost
 )
 
 module.exports = router
