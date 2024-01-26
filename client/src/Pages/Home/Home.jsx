@@ -1,19 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  // const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const handleAuthClick = () => {
-    setIsLoggedIn(!isLoggedIn)
-  }
+  // Todo: Add OAuth.
+  // const handleAuthClick = () => {
+  //   setIsLoggedIn(!isLoggedIn)
+  // }
+
   let navigate = useNavigate()
 
   return (
-    <div className="HomeContainer">
-      <h1 className="homeH2"> Welcome home!</h1>
-      <h2 className="homeh3"> What's on your mind?</h2>
-      <section className="welcome-signin">
+    <div className="home-container">
+      <h2 className="home"> Let's talk...</h2>
+      <section className="home-signin">
+        <p>Welcome back!</p>
         <button onClick={() => navigate('signin')}>Sign In</button>
+      </section>
+      <section className="home-register">
+        <p>New users</p>
+        <button onClick={() => navigate('register')}>Register</button>
       </section>
     </div>
   )
