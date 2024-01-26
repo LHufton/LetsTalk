@@ -1,4 +1,5 @@
 const Comment = require('../models/Comment/Comment')
+const Post = require('../models/Post/Post') // Include Post model
 
 const GetComments = async (req, res) => {
   try {
@@ -14,6 +15,10 @@ const GetComments = async (req, res) => {
 const CreateComment = async (req, res) => {
   try {
     const comment = await Comment.create({ ...req.body })
+    // Update the corresponding post to include this comment
+    await Post.findByIdAndUpdate(req.body.post, {
+      $push: { comments: comment._id }
+    })
     res.send(comment)
   } catch (error) {
     console.error('Error in CreateComment: ', error)
@@ -37,7 +42,12 @@ const UpdateComment = async (req, res) => {
 
 const DeleteComment = async (req, res) => {
   try {
-    await Comment.deleteOne({ _id: req.params.commentId })
+    await Comment.deleteOne({ _id: req.params.comment_id })
+    // Remove the comment's reference from the corresponding post
+    await Post.findOneAndUpdate(
+      { comments: req.params.comment_id },
+      { $pull: { comments: req.params.comment_id } }
+    )
     res.send({
       msg: 'Comment Deleted',
       payload: req.params.commentId,

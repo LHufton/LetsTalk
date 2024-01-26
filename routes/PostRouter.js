@@ -23,6 +23,18 @@ router.delete(
   middleware.verifyToken,
   controller.DeletePost
 )
+router.post(
+  '/:post_id/comments',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.AddCommentToPost
+)
+router.delete(
+  '/:post_id/comments/:comment_id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  controller.RemoveCommentFromPost
+)
 
 // New routes for Comment operations within a Post
 router.post(
