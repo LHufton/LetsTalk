@@ -70,12 +70,68 @@ const RemoveCommentFromPost = async (req, res) => {
   }
 }
 
+const UpdateCommentInPost = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params
+    const { content } = req.body
+
+    const post = await Post.findById(postId)
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    const comment = post.comments.id(commentId)
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' })
+    }
+
+    comment.content = content
+    await post.save()
+
+    return res.status(200).json({ message: 'Comment updated', post })
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
+}
+const DeleteCommentFromPost = async (req, res) => {
+  try {
+    const { postId, commentId } = req.params
+
+    // Find the post by ID
+    const post = await Post.findById(postId)
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' })
+    }
+
+    // Check if the comment exists in the post
+    const commentExists = post.comments.some((comment) =>
+      comment._id.equals(commentId)
+    )
+    if (!commentExists) {
+      return res.status(404).json({ message: 'Comment not found' })
+    }
+
+    // Remove the comment from the post's comments array
+    post.comments = post.comments.filter(
+      (comment) => !comment._id.equals(commentId)
+    )
+
+    // Save the updated post
+    await post.save()
+
+    return res.status(200).json({ message: 'Comment deleted', post })
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
+}
+
 module.exports = {
   GetPosts,
-  GetPostComments,
   CreatePost,
   UpdatePost,
   DeletePost,
   AddCommentToPost,
+  UpdateCommentInPost,
+  DeleteCommentFromPost,
   RemoveCommentFromPost
 }

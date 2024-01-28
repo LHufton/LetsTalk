@@ -20,7 +20,7 @@ const PostSchema = new Schema(
   {
     title: { type: String, required: false },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     content: { type: String },
     isPublic: { type: Boolean, default: false },
     comments: [CommentSchema]

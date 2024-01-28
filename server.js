@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'client/dist')))
 
 // API routes
 app.use('/auth', AuthRouter)
-app.use('/comments', CommentRouter)
+// app.use('/comments', CommentRouter)
 app.use('/posts', PostRouter)
 app.use('/feed', FeedRouter)
 
