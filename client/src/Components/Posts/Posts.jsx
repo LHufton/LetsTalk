@@ -4,7 +4,7 @@ import Client from '../../Services/api'
 const Post = (props) => {
   const [formValues, setFormValues] = useState({
     content: '',
-    author: props.user.id
+    author: ''
   })
   const [posts, setPosts] = useState([])
   const [editingPost, setEditingPost] = useState(null)
@@ -38,7 +38,7 @@ const Post = (props) => {
     try {
       let response = await Client.post('/posts', formValues)
       setPosts([...posts, response.data])
-      setFormValues({ content: '', author: props.user.id })
+      setFormValues({ content: '', author: props.user ? props.user.id : '' })
     } catch (error) {
       console.error('Error creating post:', error)
     }
@@ -105,7 +105,8 @@ const Post = (props) => {
         </form>
       </div>
       <section className="new-post-card">
-        {posts.map((post) => (
+        console.log(posts)
+        {posts.comments?.map((post) => (
           <div key={post._id}>
             <h4>{post.content}</h4>
             {editingPost === post._id ? (
