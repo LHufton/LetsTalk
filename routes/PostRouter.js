@@ -1,4 +1,5 @@
-const router = require('express').Router()
+const express = require('express')
+const router = express.Router()
 const controller = require('../controllers/PostsController')
 console.log(controller)
 const middleware = require('../middleware')
@@ -24,13 +25,13 @@ router.delete(
   controller.DeletePost
 )
 router.post(
-  '/:post_id/comments',
+  '/:postId/comments',
   middleware.stripToken,
   middleware.verifyToken,
   controller.AddCommentToPost
 )
 router.delete(
-  '/:post_id/comments/:comment_id',
+  '/:postId/comments/:commentId',
   middleware.stripToken,
   middleware.verifyToken,
   controller.RemoveCommentFromPost

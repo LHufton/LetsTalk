@@ -2,9 +2,8 @@ const Post = require('../models/Post/Post')
 
 const GetPosts = async (req, res) => {
   try {
-    const posts = await Post.find({})
-    res.render('posts/', { posts })
-    // return res.status(200).json(posts)
+    const posts = await Post.find({}).populate('comments') // Added .populate('comments') to include comment details
+    return res.status(200).json(posts) // This should be uncommented and used
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
